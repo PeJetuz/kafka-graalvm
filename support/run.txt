@@ -1,0 +1,18 @@
+#https://github.com/vegardit/docker-graalvm-maven/blob/main/README.md
+docker run -it --name=graal23 --network=app-tier -v /c/prj/testme:/mnt/testme:rw -v /c/Users/User/.m2:/root/.m2:rw -w /mnt/testme vegardit/graalvm-maven:23.0.2 mc
+
+
+
+
+## old:
+docker network create -d bridge --subnet 172.28.0.0/16 ide-net
+docker run --name=graal21 --net=ide-net -p 8888:8888 -p 8761:8761 -p 8181:8181 -p 8080:8080 --ip 172.28.0.2 -ti -v C:\\prj\\testme\\eureka:/prj vegardit/graalvm-maven:dev-java21 mc
+
+#export GRAALVM_HOME=$JAVA_HOME
+
+
+docker run --name=ide --net=ide-net -p 8888:8888 -p 8761:8761 -p 8181:8181 -p 8080:8080 --ip 172.28.0.2 --mount source=ide-vol,target=/root --privileged=true -e COLUMNS=$COLUMNS -e LINES=$LINES --hostname=dev ide
+
+#run graalvm 
+docker build -t graal -f Dockerfile.graalol .
+docker run -it --name=graal --network=app-tier -v /c/prj/testme:/mnt/testme:rw -v /c/Users/User/.m2:/root/.m2:rw -w /mnt/testme graal

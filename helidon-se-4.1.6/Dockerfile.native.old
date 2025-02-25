@@ -1,0 +1,59 @@
+
+# 1st stage, build the app https://github.com/graalvm/container/pkgs/container/native-image-community
+#https://github.com/graalvm/container/pkgs/container/graalvm-community  https://github.com/graalvm/container/pkgs/container/graalvm-community/versions?filters%5Bversion_type%5D=tagged
+#FROM ghcr.io/graalvm/native-image-community:23.0.2-muslib-ol9 AS build
+FROM ghcr.io/graalvm/native-image-community:20.0.2-muslib-ol9 AS build
+
+WORKDIR /usr/share
+
+#RUN dnf update && dnf install gzip.x86_64
+#rpm --install gzip-1.9-9.el8.x86_64.rpm
+
+# Install maven
+RUN set -x && \
+    curl -O https://archive.apache.org/dist/maven/maven-3/3.8.4/binaries/apache-maven-3.8.4-bin.tar.gz && \
+    tar -xvf apache-maven-*-bin.tar.gz  && \
+    rm apache-maven-*-bin.tar.gz && \
+    mv apache-maven-* maven && \
+    ln -s /usr/share/maven/bin/mvn /bin/
+
+WORKDIR /helidon
+
+# Create a first layer to cache the "Maven World" in the local repository.
+# Incremental docker builds will always resume after that, unless you update
+# the pom
+ADD pom.xml .
+RUN mvn package -Pnative-image -Dnative.image.skip -Dmaven.test.skip -Declipselink.weave.skip
+
+# Do the Maven build!
+# Incremental docker builds will resume here when you change sources
+ADD src src
+RUN mvn package -Pnative-image -Dnative.image.buildStatic -DskipTests
+#RUN mvn package -DskipTests
+RUN ls -l /helidon/target && echo adssdfjskdflsqwe
+
+RUN echo "done!"
+
+#WORKDIR target
+
+
+#CMD ["java", "-jar", "helidon-quickstart-se.jar"]
+
+
+
+# 2nd stage, build the runtime image
+#FROM scratch
+#FROM ghcr.io/graalvm/native-image-community:23.0.2-muslib-ol9
+#FROM alpine:3.21.3
+
+#RUN apk add snappy
+
+WORKDIR /helidon
+
+# Copy the binary built in the 1st stage
+#COPY --from=build /helidon/target/helidon-quickstart-se .
+
+#ENTRYPOINT ["./helidon-quickstart-se"]
+ENTRYPOINT ["/helidon/target/helidon-quickstart-se"]
+
+EXPOSE 8080

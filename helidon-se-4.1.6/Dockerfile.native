@@ -1,0 +1,54 @@
+
+# 1st stage, build the app https://github.com/graalvm/container/pkgs/container/native-image-community
+#https://github.com/graalvm/container/pkgs/container/graalvm-community  https://github.com/graalvm/container/pkgs/container/graalvm-community/versions?filters%5Bversion_type%5D=tagged
+FROM ghcr.io/graalvm/native-image-community:23.0.2-muslib-ol9 AS build
+
+WORKDIR /usr/share
+
+# Install maven
+RUN set -x && \
+    curl -O https://archive.apache.org/dist/maven/maven-3/3.8.4/binaries/apache-maven-3.8.4-bin.tar.gz && \
+    tar -xvf apache-maven-*-bin.tar.gz  && \
+    rm apache-maven-*-bin.tar.gz && \
+    mv apache-maven-* maven && \
+    ln -s /usr/share/maven/bin/mvn /bin/
+
+WORKDIR /helidon
+
+# Create a first layer to cache the "Maven World" in the local repository.
+# Incremental docker builds will always resume after that, unless you update
+# the pom
+ADD pom.xml .
+RUN mvn package
+
+# Do the Maven build!
+# Incremental docker builds will resume here when you change sources
+ADD src src
+RUN mvn package -Pnative && echo qwejhakjshd
+
+RUN echo "done!"
+
+# 2nd stage, build the runtime image
+FROM alpine:3.21.3
+
+#RUN apk --no-cache add mc
+#RUN apk --no-cache add ca-certificates
+#RUN wget http://dl-cdn.alpinelinux.org/alpine/v3.18/community/x86_64/java-snappy-native-1.1.8.4-r0.apk && \
+#    apk add java-snappy-native-1.1.8.4-r0.apk && \
+#	rm -rf java-snappy-native-1.1.8.4-r0.apk
+
+ADD lib /usr/lib
+WORKDIR /usr/lib
+RUN ln libstdc++.so.6.0.33 libstdc++.so.6 && \
+    ln libsnappyjava.so.1.1.8 libsnappyjava.so && \
+    ln libsnappy.so.1.1.10 libsnappy.so.1 && \
+    ln libzstd-jni-1.5.5-6.so libzstd-jni.so
+	
+WORKDIR /helidon
+
+# Copy the binary built in the 1st stage
+COPY --from=build /helidon/target/helidon-kafka-graal .
+
+#WORKDIR /
+#ENTRYPOINT ["/bin/ash"]
+ENTRYPOINT ["/helidon/helidon-kafka-graal", "-DZstdNativePath=/usr/lib/libzstd-jni.so"]

@@ -1,0 +1,15 @@
+server:
+  port: 8080
+  host: 0.0.0.0
+
+app:
+    greeting: "Hello"
+    kafka:
+      schema.registry.url: http://127.0.0.1:8081
+      bootstrap.servers: localhost:9094
+      compression: snappy
+      #    compression: snappy
+      #    compression: lz4
+      #    compression: zstd
+      #    compression: gzip
+      topic: messaging-greet-topic-${app.kafka.compression}-compressed

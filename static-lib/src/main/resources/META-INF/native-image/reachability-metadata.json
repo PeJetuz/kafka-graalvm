@@ -1,0 +1,124 @@
+{
+  "reflection": [
+    {
+      "type": "java.util.concurrent.atomic.AtomicBoolean",
+      "fields": [
+        {
+          "name": "value"
+        }
+      ]
+    },
+    {
+      "type": "jdk.internal.jrtfs.JrtFileSystemProvider"
+    },
+    {
+      "type": "my.test.SnappyTest",
+      "allDeclaredFields": true,
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "staticLib",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "org.apiguardian.api.API"
+    },
+    {
+      "type": "org.junit.internal.AssumptionViolatedException"
+    },
+    {
+      "type": "org.junit.jupiter.api.Test"
+    },
+    {
+      "type": "org.junit.jupiter.engine.JupiterTestEngine"
+    },
+    {
+      "type": "org.junit.platform.commons.annotation.Testable"
+    },
+    {
+      "type": "org.junit.platform.launcher.listeners.UniqueIdTrackingListener"
+    },
+    {
+      "type": "sun.security.provider.NativePRNG",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "java.security.SecureRandomParameters"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "sun.security.provider.SHA",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    }
+  ],
+  "resources": [
+    {
+      "glob": "META-INF/maven/org.xerial.snappy/snappy-java/pom.properties"
+    },
+    {
+      "glob": "META-INF/services/java.lang.System$LoggerFinder"
+    },
+    {
+      "glob": "META-INF/services/java.nio.file.spi.FileSystemProvider"
+    },
+    {
+      "glob": "META-INF/services/java.time.zone.ZoneRulesProvider"
+    },
+    {
+      "glob": "META-INF/services/org.junit.platform.engine.TestEngine"
+    },
+    {
+      "glob": "META-INF/services/org.junit.platform.launcher.LauncherDiscoveryListener"
+    },
+    {
+      "glob": "META-INF/services/org.junit.platform.launcher.LauncherSessionListener"
+    },
+    {
+      "glob": "META-INF/services/org.junit.platform.launcher.PostDiscoveryFilter"
+    },
+    {
+      "glob": "META-INF/services/org.junit.platform.launcher.TestExecutionListener"
+    },
+    {
+      "glob": "junit-platform.properties"
+    },
+    {
+      "glob": "org-xerial-snappy.properties"
+    },
+    {
+      "glob": "org/xerial/snappy/VERSION"
+    }
+  ],
+  "bundles": [],
+  "serialization": [
+    {
+      "type": "org.junit.platform.launcher.TestIdentifier$SerializedForm"
+    }
+  ],
+  "jni": [
+    {
+      "type": "java.lang.Boolean",
+      "methods": [
+        {
+          "name": "getBoolean",
+          "parameterTypes": [
+            "java.lang.String"
+          ]
+        }
+      ]
+    }
+  ]
+}

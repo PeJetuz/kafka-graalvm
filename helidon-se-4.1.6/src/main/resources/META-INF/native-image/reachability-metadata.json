@@ -1,0 +1,1283 @@
+{
+  "reflection": [
+    {
+      "type": "[B"
+    },
+    {
+      "type": "[C"
+    },
+    {
+      "type": "[D"
+    },
+    {
+      "type": "[F"
+    },
+    {
+      "type": "[I"
+    },
+    {
+      "type": "[J"
+    },
+    {
+      "type": "[Lcom.fasterxml.jackson.databind.deser.Deserializers;"
+    },
+    {
+      "type": "[Ljava.lang.String;"
+    },
+    {
+      "type": "[Ljavax.management.openmbean.CompositeData;"
+    },
+    {
+      "type": "[S"
+    },
+    {
+      "type": "[Z"
+    },
+    {
+      "type": "com.fasterxml.jackson.databind.ext.Java7SupportImpl",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "com.google.protobuf.DescriptorProtos$EnumOptions"
+    },
+    {
+      "type": "com.google.protobuf.DescriptorProtos$EnumOptions$Builder"
+    },
+    {
+      "type": "com.google.protobuf.DescriptorProtos$EnumValueOptions"
+    },
+    {
+      "type": "com.google.protobuf.DescriptorProtos$EnumValueOptions$Builder"
+    },
+    {
+      "type": "com.google.protobuf.DescriptorProtos$FeatureSet"
+    },
+    {
+      "type": "com.google.protobuf.DescriptorProtos$FieldOptions"
+    },
+    {
+      "type": "com.google.protobuf.DescriptorProtos$FieldOptions$Builder"
+    },
+    {
+      "type": "com.google.protobuf.DescriptorProtos$FieldOptions$CType"
+    },
+    {
+      "type": "com.google.protobuf.DescriptorProtos$FieldOptions$EditionDefault"
+    },
+    {
+      "type": "com.google.protobuf.DescriptorProtos$FieldOptions$JSType"
+    },
+    {
+      "type": "com.google.protobuf.DescriptorProtos$FieldOptions$OptionRetention"
+    },
+    {
+      "type": "com.google.protobuf.DescriptorProtos$FieldOptions$OptionTargetType"
+    },
+    {
+      "type": "com.google.protobuf.DescriptorProtos$FileOptions"
+    },
+    {
+      "type": "com.google.protobuf.DescriptorProtos$FileOptions$Builder"
+    },
+    {
+      "type": "com.google.protobuf.DescriptorProtos$FileOptions$OptimizeMode"
+    },
+    {
+      "type": "com.google.protobuf.DescriptorProtos$MessageOptions"
+    },
+    {
+      "type": "com.google.protobuf.DescriptorProtos$MessageOptions$Builder"
+    },
+    {
+      "type": "com.google.protobuf.DescriptorProtos$UninterpretedOption"
+    },
+    {
+      "type": "com.google.protobuf.Extension"
+    },
+    {
+      "type": "com.google.protobuf.ExtensionRegistry",
+      "methods": [
+        {
+          "name": "add",
+          "parameterTypes": [
+            "com.google.protobuf.Extension"
+          ]
+        },
+        {
+          "name": "getEmptyRegistry",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "com.google.protobuf.GeneratedMessageV3$ExtendableMessage",
+      "methods": [
+        {
+          "name": "getExtensionFields",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "com.sun.crypto.provider.AESCipher$General",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "com.sun.crypto.provider.ARCFOURCipher",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "com.sun.crypto.provider.ChaCha20Cipher$ChaCha20Poly1305",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "com.sun.crypto.provider.DESCipher",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "com.sun.crypto.provider.DESedeCipher",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "com.sun.crypto.provider.GaloisCounterMode$AESGCM",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "com.sun.management.GarbageCollectorMXBean"
+    },
+    {
+      "type": "com.sun.management.GcInfo"
+    },
+    {
+      "type": "com.sun.management.HotSpotDiagnosticMXBean"
+    },
+    {
+      "type": "com.sun.management.ThreadMXBean"
+    },
+    {
+      "type": "com.sun.management.UnixOperatingSystemMXBean"
+    },
+    {
+      "type": "com.sun.management.VMOption"
+    },
+    {
+      "type": "com.sun.management.internal.GarbageCollectorExtImpl"
+    },
+    {
+      "type": "com.sun.management.internal.HotSpotDiagnostic"
+    },
+    {
+      "type": "com.sun.management.internal.HotSpotThreadImpl"
+    },
+    {
+      "type": "com.sun.management.internal.OperatingSystemImpl"
+    },
+    {
+      "type": "io.confluent.kafka.schemaregistry.client.rest.entities.Metadata",
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.confluent.kafka.schemaregistry.client.rest.entities.Rule",
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.confluent.kafka.schemaregistry.client.rest.entities.RuleKind",
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.confluent.kafka.schemaregistry.client.rest.entities.RuleMode",
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.confluent.kafka.schemaregistry.client.rest.entities.RuleSet",
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.confluent.kafka.schemaregistry.client.rest.entities.SchemaReference",
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.confluent.kafka.schemaregistry.client.rest.entities.SchemaTypeConverter",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "io.confluent.kafka.schemaregistry.client.rest.entities.requests.RegisterSchemaRequest",
+      "allDeclaredFields": true,
+      "methods": [
+        {
+          "name": "getId",
+          "parameterTypes": []
+        },
+        {
+          "name": "getMetadata",
+          "parameterTypes": []
+        },
+        {
+          "name": "getReferences",
+          "parameterTypes": []
+        },
+        {
+          "name": "getRuleSet",
+          "parameterTypes": []
+        },
+        {
+          "name": "getSchema",
+          "parameterTypes": []
+        },
+        {
+          "name": "getSchemaTagsToAdd",
+          "parameterTypes": []
+        },
+        {
+          "name": "getSchemaTagsToRemove",
+          "parameterTypes": []
+        },
+        {
+          "name": "getSchemaType",
+          "parameterTypes": []
+        },
+        {
+          "name": "getVersion",
+          "parameterTypes": []
+        },
+        {
+          "name": "isPropagateSchemaTags",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "io.confluent.kafka.schemaregistry.client.rest.entities.requests.RegisterSchemaResponse",
+      "allDeclaredFields": true,
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "setId",
+          "parameterTypes": [
+            "int"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "io.confluent.kafka.schemaregistry.rules.DlqAction"
+    },
+    {
+      "type": "io.confluent.kafka.serializers.context.NullContextNameStrategy",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "io.confluent.kafka.serializers.subject.DefaultReferenceSubjectNameStrategy",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "io.confluent.kafka.serializers.subject.TopicNameStrategy",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "io.helidon.common.LazyValueImpl",
+      "fields": [
+        {
+          "name": "loaded"
+        },
+        {
+          "name": "theLock"
+        }
+      ]
+    },
+    {
+      "type": "io.helidon.common.concurrency.limits.AimdLimitProvider"
+    },
+    {
+      "type": "io.helidon.common.concurrency.limits.FixedLimitProvider"
+    },
+    {
+      "type": "io.helidon.config.PropertiesConfigParser"
+    },
+    {
+      "type": "io.helidon.config.mp.MpConfigProviderResolver"
+    },
+    {
+      "type": "io.helidon.config.yaml.YamlConfigParser"
+    },
+    {
+      "type": "io.helidon.examples.quickstart.se.GreetService$KafkaProtobufSerializerTestMsg",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "io.helidon.health.checks.BuiltInHealthCheckProvider"
+    },
+    {
+      "type": "io.helidon.http.media.jsonp.JsonpMediaSupportProvider"
+    },
+    {
+      "type": "io.helidon.logging.jul.JulMdcPropagator"
+    },
+    {
+      "type": "io.helidon.logging.jul.JulProvider"
+    },
+    {
+      "type": "io.helidon.metrics.providers.micrometer.MicrometerMetricsFactoryProvider"
+    },
+    {
+      "type": "io.helidon.metrics.systemmeters.SystemMetersProvider"
+    },
+    {
+      "type": "io.helidon.microprofile.reactive.HelidonReactiveStreamsEngine"
+    },
+    {
+      "type": "io.helidon.webserver.cors.CorsFeatureProvider"
+    },
+    {
+      "type": "io.helidon.webserver.http1.Http1ConnectionProvider"
+    },
+    {
+      "type": "io.helidon.webserver.http1.Http1ProtocolConfigProvider"
+    },
+    {
+      "type": "io.helidon.webserver.observe.ObserveFeatureProvider"
+    },
+    {
+      "type": "io.helidon.webserver.observe.health.HealthObserveProvider"
+    },
+    {
+      "type": "io.helidon.webserver.observe.metrics.MetricsObserveProvider"
+    },
+    {
+      "type": "java.lang.Boolean",
+      "fields": [
+        {
+          "name": "TYPE"
+        }
+      ]
+    },
+    {
+      "type": "java.lang.Byte",
+      "fields": [
+        {
+          "name": "TYPE"
+        }
+      ]
+    },
+    {
+      "type": "java.lang.Character",
+      "fields": [
+        {
+          "name": "TYPE"
+        }
+      ]
+    },
+    {
+      "type": "java.lang.Comparable"
+    },
+    {
+      "type": "java.lang.Deprecated"
+    },
+    {
+      "type": "java.lang.Double",
+      "fields": [
+        {
+          "name": "TYPE"
+        }
+      ]
+    },
+    {
+      "type": "java.lang.Float",
+      "fields": [
+        {
+          "name": "TYPE"
+        }
+      ]
+    },
+    {
+      "type": "java.lang.Integer",
+      "fields": [
+        {
+          "name": "TYPE"
+        }
+      ]
+    },
+    {
+      "type": "java.lang.Long",
+      "fields": [
+        {
+          "name": "TYPE"
+        }
+      ]
+    },
+    {
+      "type": "java.lang.Short",
+      "fields": [
+        {
+          "name": "TYPE"
+        }
+      ]
+    },
+    {
+      "type": "java.lang.StackTraceElement"
+    },
+    {
+      "type": "java.lang.String",
+      "fields": [
+        {
+          "name": "TYPE"
+        }
+      ]
+    },
+    {
+      "type": "java.lang.Thread",
+      "fields": [
+        {
+          "name": "threadLocalRandomProbe"
+        }
+      ]
+    },
+    {
+      "type": "java.lang.Void",
+      "fields": [
+        {
+          "name": "TYPE"
+        }
+      ]
+    },
+    {
+      "type": "java.lang.management.BufferPoolMXBean"
+    },
+    {
+      "type": "java.lang.management.ClassLoadingMXBean"
+    },
+    {
+      "type": "java.lang.management.CompilationMXBean"
+    },
+    {
+      "type": "java.lang.management.LockInfo"
+    },
+    {
+      "type": "java.lang.management.ManagementPermission",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "java.lang.String"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "java.lang.management.MemoryMXBean"
+    },
+    {
+      "type": "java.lang.management.MemoryManagerMXBean"
+    },
+    {
+      "type": "java.lang.management.MemoryPoolMXBean"
+    },
+    {
+      "type": "java.lang.management.MemoryUsage"
+    },
+    {
+      "type": "java.lang.management.MonitorInfo"
+    },
+    {
+      "type": "java.lang.management.PlatformLoggingMXBean"
+    },
+    {
+      "type": "java.lang.management.RuntimeMXBean"
+    },
+    {
+      "type": "java.lang.management.ThreadInfo"
+    },
+    {
+      "type": "java.math.BigDecimal"
+    },
+    {
+      "type": "java.math.BigInteger"
+    },
+    {
+      "type": "java.nio.Buffer",
+      "fields": [
+        {
+          "name": "address"
+        }
+      ]
+    },
+    {
+      "type": "java.security.AlgorithmParametersSpi"
+    },
+    {
+      "type": "java.security.KeyStoreSpi"
+    },
+    {
+      "type": "java.sql.Date"
+    },
+    {
+      "type": "java.sql.Timestamp"
+    },
+    {
+      "type": "java.util.Date"
+    },
+    {
+      "type": "java.util.HashSet"
+    },
+    {
+      "type": "java.util.PropertyPermission",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "java.lang.String",
+            "java.lang.String"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "java.util.concurrent.ForkJoinTask",
+      "fields": [
+        {
+          "name": "aux"
+        },
+        {
+          "name": "status"
+        }
+      ]
+    },
+    {
+      "type": "java.util.concurrent.atomic.AtomicBoolean",
+      "fields": [
+        {
+          "name": "value"
+        }
+      ]
+    },
+    {
+      "type": "java.util.concurrent.atomic.Striped64",
+      "fields": [
+        {
+          "name": "base"
+        },
+        {
+          "name": "cellsBusy"
+        }
+      ]
+    },
+    {
+      "type": "java.util.logging.LogManager",
+      "methods": [
+        {
+          "name": "getLoggingMXBean",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "java.util.logging.LoggingMXBean"
+    },
+    {
+      "type": "java.util.zip.CRC32C",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "java.util.zip.Checksum",
+      "methods": [
+        {
+          "name": "update",
+          "parameterTypes": [
+            "java.nio.ByteBuffer"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "javax.management.MBeanOperationInfo"
+    },
+    {
+      "type": "javax.management.MBeanServerBuilder",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "javax.management.ObjectName"
+    },
+    {
+      "type": "javax.management.StandardEmitterMBean"
+    },
+    {
+      "type": "javax.management.openmbean.CompositeData"
+    },
+    {
+      "type": "javax.management.openmbean.OpenMBeanOperationInfoSupport"
+    },
+    {
+      "type": "javax.management.openmbean.TabularData"
+    },
+    {
+      "type": "jdk.internal.misc.Unsafe"
+    },
+    {
+      "type": "jdk.management.jfr.ConfigurationInfo"
+    },
+    {
+      "type": "jdk.management.jfr.EventTypeInfo"
+    },
+    {
+      "type": "jdk.management.jfr.FlightRecorderMXBean"
+    },
+    {
+      "type": "jdk.management.jfr.FlightRecorderMXBeanImpl"
+    },
+    {
+      "type": "jdk.management.jfr.RecordingInfo"
+    },
+    {
+      "type": "jdk.management.jfr.SettingDescriptorInfo"
+    },
+    {
+      "type": "libcore.io.Memory"
+    },
+    {
+      "type": "my.test.protobuf.Envelop$Message"
+    },
+    {
+      "type": "my.test.protobuf.Envelop$Message$Builder"
+    },
+    {
+      "type": "org.apache.kafka.common.serialization.StringSerializer",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "org.apache.kafka.common.utils.AppInfoParser$AppInfo"
+    },
+    {
+      "type": "org.apache.kafka.common.utils.AppInfoParser$AppInfoMBean"
+    },
+    {
+      "type": "org.apache.kafka.shaded.com.google.protobuf.ExtensionRegistry",
+      "methods": [
+        {
+          "name": "getEmptyRegistry",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "org.eclipse.microprofile.reactive.streams.operators.core.ReactiveStreamsFactoryImpl"
+    },
+    {
+      "type": "org.eclipse.parsson.JsonProviderImpl"
+    },
+    {
+      "type": "org.robolectric.Robolectric"
+    },
+    {
+      "type": "org.slf4j.jdk.platform.logging.SLF4JSystemLoggerFinder"
+    },
+    {
+      "type": "org.slf4j.jul.JULServiceProvider"
+    },
+    {
+      "type": "sun.management.ClassLoadingImpl"
+    },
+    {
+      "type": "sun.management.CompilationImpl"
+    },
+    {
+      "type": "sun.management.ManagementFactoryHelper$1"
+    },
+    {
+      "type": "sun.management.ManagementFactoryHelper$PlatformLoggingImpl"
+    },
+    {
+      "type": "sun.management.MemoryImpl"
+    },
+    {
+      "type": "sun.management.MemoryManagerImpl"
+    },
+    {
+      "type": "sun.management.MemoryPoolImpl"
+    },
+    {
+      "type": "sun.management.RuntimeImpl"
+    },
+    {
+      "type": "sun.misc.Unsafe",
+      "allDeclaredFields": true
+    },
+    {
+      "type": "sun.security.pkcs12.PKCS12KeyStore",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "sun.security.pkcs12.PKCS12KeyStore$DualFormatPKCS12",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "sun.security.provider.NativePRNG",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "java.security.SecureRandomParameters"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "sun.security.provider.SHA",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "sun.security.provider.X509Factory",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "sun.security.rsa.RSAKeyFactory$Legacy",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "sun.security.ssl.SSLContextImpl$TLS13Context",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "sun.security.ssl.TrustManagerFactoryImpl$PKIXFactory",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "sun.security.x509.AuthorityInfoAccessExtension",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "java.lang.Boolean",
+            "java.lang.Object"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "sun.security.x509.AuthorityKeyIdentifierExtension",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "java.lang.Boolean",
+            "java.lang.Object"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "sun.security.x509.BasicConstraintsExtension",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "java.lang.Boolean",
+            "java.lang.Object"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "sun.security.x509.CRLDistributionPointsExtension",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "java.lang.Boolean",
+            "java.lang.Object"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "sun.security.x509.CertificatePoliciesExtension",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "java.lang.Boolean",
+            "java.lang.Object"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "sun.security.x509.ExtendedKeyUsageExtension",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "java.lang.Boolean",
+            "java.lang.Object"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "sun.security.x509.IssuerAlternativeNameExtension",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "java.lang.Boolean",
+            "java.lang.Object"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "sun.security.x509.KeyUsageExtension",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "java.lang.Boolean",
+            "java.lang.Object"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "sun.security.x509.NetscapeCertTypeExtension",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "java.lang.Boolean",
+            "java.lang.Object"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "sun.security.x509.PrivateKeyUsageExtension",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "java.lang.Boolean",
+            "java.lang.Object"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "sun.security.x509.SubjectAlternativeNameExtension",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "java.lang.Boolean",
+            "java.lang.Object"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "sun.security.x509.SubjectKeyIdentifierExtension",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "java.lang.Boolean",
+            "java.lang.Object"
+          ]
+        }
+      ]
+    }
+  ],
+  "resources": [
+    {
+      "glob": "META-INF/helidon/feature-metadata.properties"
+    },
+    {
+      "glob": "META-INF/helidon/media-types.properties"
+    },
+    {
+      "glob": "META-INF/helidon/serial-config.properties"
+    },
+    {
+      "glob": "META-INF/services/io.confluent.kafka.schemaregistry.rules.RuleAction"
+    },
+    {
+      "glob": "META-INF/services/io.confluent.kafka.schemaregistry.rules.RuleExecutor"
+    },
+    {
+      "glob": "META-INF/services/io.helidon.common.concurrency.limits.spi.LimitProvider"
+    },
+    {
+      "glob": "META-INF/services/io.helidon.common.configurable.spi.ExecutorServiceSupplierObserver"
+    },
+    {
+      "glob": "META-INF/services/io.helidon.common.context.spi.DataPropagationProvider"
+    },
+    {
+      "glob": "META-INF/services/io.helidon.common.mapper.spi.MapperProvider"
+    },
+    {
+      "glob": "META-INF/services/io.helidon.common.media.type.spi.MediaTypeDetector"
+    },
+    {
+      "glob": "META-INF/services/io.helidon.common.tls.spi.TlsManagerProvider"
+    },
+    {
+      "glob": "META-INF/services/io.helidon.config.mp.spi.MpConfigFilter"
+    },
+    {
+      "glob": "META-INF/services/io.helidon.config.mp.spi.MpMetaConfigProvider"
+    },
+    {
+      "glob": "META-INF/services/io.helidon.config.spi.ConfigFilter"
+    },
+    {
+      "glob": "META-INF/services/io.helidon.config.spi.ConfigMapperProvider"
+    },
+    {
+      "glob": "META-INF/services/io.helidon.config.spi.ConfigParser"
+    },
+    {
+      "glob": "META-INF/services/io.helidon.health.spi.HealthCheckProvider"
+    },
+    {
+      "glob": "META-INF/services/io.helidon.http.encoding.spi.ContentEncodingProvider"
+    },
+    {
+      "glob": "META-INF/services/io.helidon.http.media.spi.MediaSupportProvider"
+    },
+    {
+      "glob": "META-INF/services/io.helidon.logging.common.spi.LoggingProvider"
+    },
+    {
+      "glob": "META-INF/services/io.helidon.metrics.providers.micrometer.spi.SpanContextSupplierProvider"
+    },
+    {
+      "glob": "META-INF/services/io.helidon.metrics.spi.MeterRegistryLifeCycleListener"
+    },
+    {
+      "glob": "META-INF/services/io.helidon.metrics.spi.MetersProvider"
+    },
+    {
+      "glob": "META-INF/services/io.helidon.metrics.spi.MetricsFactoryProvider"
+    },
+    {
+      "glob": "META-INF/services/io.helidon.metrics.spi.MetricsProgrammaticConfig"
+    },
+    {
+      "glob": "META-INF/services/io.helidon.webserver.http.spi.SinkProvider"
+    },
+    {
+      "glob": "META-INF/services/io.helidon.webserver.http1.spi.Http1UpgradeProvider"
+    },
+    {
+      "glob": "META-INF/services/io.helidon.webserver.observe.spi.ObserveProvider"
+    },
+    {
+      "glob": "META-INF/services/io.helidon.webserver.spi.ProtocolConfigProvider"
+    },
+    {
+      "glob": "META-INF/services/io.helidon.webserver.spi.ServerConnectionSelectorProvider"
+    },
+    {
+      "glob": "META-INF/services/io.helidon.webserver.spi.ServerFeatureProvider"
+    },
+    {
+      "glob": "META-INF/services/jakarta.json.spi.JsonProvider"
+    },
+    {
+      "glob": "META-INF/services/java.lang.System$LoggerFinder"
+    },
+    {
+      "glob": "META-INF/services/java.net.spi.InetAddressResolverProvider"
+    },
+    {
+      "glob": "META-INF/services/java.net.spi.URLStreamHandlerProvider"
+    },
+    {
+      "glob": "META-INF/services/java.nio.channels.spi.SelectorProvider"
+    },
+    {
+      "glob": "META-INF/services/java.time.zone.ZoneRulesProvider"
+    },
+    {
+      "glob": "META-INF/services/org.eclipse.microprofile.config.spi.ConfigProviderResolver"
+    },
+    {
+      "glob": "META-INF/services/org.eclipse.microprofile.reactive.streams.operators.ReactiveStreamsFactory"
+    },
+    {
+      "glob": "META-INF/services/org.eclipse.microprofile.reactive.streams.operators.spi.ReactiveStreamsEngine"
+    },
+    {
+      "glob": "META-INF/services/org.slf4j.spi.SLF4JServiceProvider"
+    },
+    {
+      "glob": "application.yaml"
+    },
+    {
+      "glob": "config-profile.conf"
+    },
+    {
+      "glob": "config-profile.json"
+    },
+    {
+      "glob": "config-profile.properties"
+    },
+    {
+      "glob": "config-profile.yaml"
+    },
+    {
+      "glob": "config-profile.yml"
+    },
+    {
+      "glob": "io/helidon/common/media/type/default-media-types.properties"
+    },
+    {
+      "glob": "kafka/kafka-version.properties"
+    },
+    {
+      "glob": "logging-test.properties"
+    },
+    {
+      "glob": "logging.properties"
+    },
+    {
+      "glob": "meta-config.conf"
+    },
+    {
+      "glob": "meta-config.json"
+    },
+    {
+      "glob": "meta-config.properties"
+    },
+    {
+      "glob": "meta-config.yaml"
+    },
+    {
+      "glob": "meta-config.yml"
+    },
+    {
+      "glob": "org-xerial-snappy.properties"
+    },
+    {
+      "module": "java.logging",
+      "glob": "sun/util/logging/resources/logging_en.properties"
+    },
+    {
+      "module": "java.logging",
+      "glob": "sun/util/logging/resources/logging_en_US.properties"
+    },
+    {
+      "module": "jdk.jfr",
+      "glob": "jdk/jfr/internal/query/view.ini"
+    }
+  ],
+  "bundles": [],
+  "jni": [
+    {
+      "type": "[Lcom.sun.management.internal.DiagnosticCommandArgumentInfo;"
+    },
+    {
+      "type": "[Lcom.sun.management.internal.DiagnosticCommandInfo;"
+    },
+    {
+      "type": "com.sun.management.internal.DiagnosticCommandArgumentInfo",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "java.lang.String",
+            "java.lang.String",
+            "java.lang.String",
+            "java.lang.String",
+            "boolean",
+            "boolean",
+            "boolean",
+            "int"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "com.sun.management.internal.DiagnosticCommandInfo",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "java.lang.String",
+            "java.lang.String",
+            "java.lang.String",
+            "java.lang.String",
+            "java.lang.String",
+            "java.lang.String",
+            "boolean",
+            "java.util.List"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "java.lang.Boolean",
+      "methods": [
+        {
+          "name": "getBoolean",
+          "parameterTypes": [
+            "java.lang.String"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "java.util.Arrays",
+      "methods": [
+        {
+          "name": "asList",
+          "parameterTypes": [
+            "java.lang.Object[]"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "sun.management.VMManagementImpl",
+      "fields": [
+        {
+          "name": "compTimeMonitoringSupport"
+        },
+        {
+          "name": "currentThreadCpuTimeSupport"
+        },
+        {
+          "name": "objectMonitorUsageSupport"
+        },
+        {
+          "name": "otherThreadCpuTimeSupport"
+        },
+        {
+          "name": "remoteDiagnosticCommandsSupport"
+        },
+        {
+          "name": "synchronizerUsageSupport"
+        },
+        {
+          "name": "threadAllocatedMemorySupport"
+        },
+        {
+          "name": "threadContentionMonitoringSupport"
+        }
+      ]
+    }
+  ]
+}

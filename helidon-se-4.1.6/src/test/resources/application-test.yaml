@@ -1,0 +1,9 @@
+app:
+  kafka:
+    schema.registry.url: http://127.0.0.1:8081
+    bootstrap.servers: localhost:9094
+    compression: snappy
+    #    compression: lz4
+    #    compression: zstd
+    #    compression: gzip
+    topic: messaging-test-topic-${app.kafka.compression}-compressed
