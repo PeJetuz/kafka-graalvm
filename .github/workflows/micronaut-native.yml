@@ -18,6 +18,7 @@ jobs:
   micronaut-static:
     runs-on: ubuntu-latest
     name: Micronaut-Kafka-GraalVM builds for alpine
+    steps:
       - name: Build micronaut static for alpine
         id: micronaut-kafka-graalvm-alpine
         uses: PeJetuz/kafka-graalvm/micronaut/websocket@v3
