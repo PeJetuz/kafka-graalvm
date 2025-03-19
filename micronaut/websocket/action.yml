@@ -1,0 +1,7 @@
+# action.yml
+name: micronaut-kafka-graalvm-alpine
+author: Vladimir Shapkin
+description: 'Build micronaut websocket + kafka + graalvm on alpine'
+runs:
+  using: 'docker'
+  image: 'Dockerfile.alpine'

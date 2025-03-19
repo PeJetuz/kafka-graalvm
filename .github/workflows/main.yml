@@ -24,6 +24,9 @@ jobs:
       - name: Build static lib
         id: static-lib-alpine
         uses: PeJetuz/kafka-graalvm/static-lib@v2
+      - name: Build micronaut static for alpine
+        id: micronaut-kafka-graalvm-alpine
+        uses: PeJetuz/kafka-graalvm/micronaut/websocket@v3
 
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
