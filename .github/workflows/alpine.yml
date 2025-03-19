@@ -6,7 +6,7 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: Java/Docker CI with Maven
+name: Docker CI for alpine
 
 on:
   push:
@@ -17,11 +17,11 @@ on:
 jobs:
   static-lib:
     runs-on: ubuntu-latest
-    name: Build and test static lib for alpine
+    name: Builds for alpine
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Build static lib
+      - name: Build static lib for alpine
         id: static-lib-alpine
         uses: PeJetuz/kafka-graalvm/static-lib@v2
       - name: Build micronaut static for alpine
