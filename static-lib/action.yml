@@ -1,0 +1,7 @@
+# action.yml
+name: static-lib
+author: Vladimir Shapkin
+description: 'Build static lib on alpine and run test'
+runs:
+  using: 'docker'
+  image: 'Dockerfile.native'

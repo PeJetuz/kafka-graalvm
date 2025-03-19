@@ -50,5 +50,5 @@ WORKDIR /helidon
 COPY --from=build /helidon/target/static-lib .
 
 #WORKDIR /
-ENTRYPOINT ["/bin/ash"]
-#ENTRYPOINT ["./static-lib -DZstdNativePath=/usr/lib/libzstd-jni.so"]
+#ENTRYPOINT ["/bin/ash"]
+ENTRYPOINT ["./static-lib", "-DZstdNativePath=/usr/lib/libzstd-jni.so"]
