@@ -1,0 +1,26 @@
+#https://github.com/rycus86/docker-intellij-idea
+#if not created
+docker network create app-tier --driver bridge
+
+docker build -t idea .
+
+#download, install and run https://github.com/marchaesen/vcxsrv/releases/tag/21.1.16
+
+docker run -ti --name=idea --net=app-tier --ip 172.18.0.8 --privileged=true -e DISPLAY=192.168.3.3:0.0 -v /c/Windows/Temp/.X11-unix:/tmp/.X11-unix -v /c/prj:/home/dev/prj:rw -v /c/Users/User/.m2:/home/dev/.m2 idea
+
+# start idea after exit
+docker start idea
+
+
+#from git source
+docker run --rm \
+  -e DISPLAY=${DISPLAY} \
+  -v /tmp/.X11-unix:/tmp/.X11-unix \
+  -v ~/.Idea:/home/developer/.Idea \
+  -v ~/.Idea.java:/home/developer/.java \
+  -v ~/.Idea.maven:/home/developer/.m2 \
+  -v ~/.Idea.gradle:/home/developer/.gradle \
+  -v ~/.Idea.share:/home/developer/.local/share/JetBrains \
+  -v ~/Project:/home/developer/Project \
+  --name idea-$(head -c 4 /dev/urandom | xxd -p)-$(date +'%Y%m%d-%H%M%S') \
+rycus86/intellij-idea:${IDE_VERSION}

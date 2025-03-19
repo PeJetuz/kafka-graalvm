@@ -35,6 +35,9 @@ import org.junit.jupiter.api.Test;
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
 
+/**
+ * In the current implementation of Helidon, interception and handling of Kafka errors does not work!
+ */
 @Disabled
 final class KafkaProtoTestIT {
 
@@ -145,6 +148,7 @@ final class KafkaProtoTestIT {
             kafkaConnector
         );
 
+        //Error interception and handling does not work
         final AtomicBoolean succs = new AtomicBoolean(false);
         final List<Throwable> exceptions = new ArrayList<>(1);
         Message<TestOuterTwo.Message2> msg = Message.of(TestOuterTwo.Message2.newBuilder()
@@ -158,6 +162,7 @@ final class KafkaProtoTestIT {
                 return CompletableFuture.completedFuture(null);
             })
             .withNack(exc -> {
+                //Never happens even though there is a serialization error in the schema registry due to an invalid schema
                 exceptions.add(exc);
                 return CompletableFuture.completedFuture(null);
             });
@@ -204,6 +209,10 @@ final class KafkaProtoTestIT {
             this.next.add(message.getPayload());
         }
 
+        /**
+         * Never happens even though there is a serialization error in the schema registry due to an invalid schema
+         * @param exception the throwable signaled
+         */
         @Override
         public void onError(Throwable exception) {
             this.errors.add(exception);

@@ -25,11 +25,16 @@
     <version.plugin.dependency>3.7.1</version.plugin.dependency>
     <version.plugin.exec>3.1.0</version.plugin.exec>
     <version.plugin.protobuf>0.6.1</version.plugin.protobuf>
+    <version.plugin.failsafe>3.2.5</version.plugin.failsafe>
 
+    <version.lib.asm>9.7.1</version.lib.asm>
     <version.lib.google-protobuf>3.25.5</version.lib.google-protobuf>
     <version.lib.grpc>1.70.0</version.lib.grpc>
     <version.lib.jakarta.jsonp-api>2.1.3</version.lib.jakarta.jsonp-api>
-    <version.lib.junit>5.11.4</version.lib.junit>
+    <version.lib.junit>5.12.0</version.lib.junit>
+    <version.lib.junit.platform.native>0.10.5</version.lib.junit.platform.native>
+    <version.lib.junit-platform>1.12.0</version.lib.junit-platform>
+    <version.plugin.shade>3.5.0</version.plugin.shade>
     <version.lib.hamcrest>1.3</version.lib.hamcrest>
     <version.lib.slf4j>2.0.16</version.lib.slf4j>
     <version.plugin.os>1.7.1</version.plugin.os>
@@ -37,6 +42,7 @@
     <versio.kafka.clients>3.9.0</versio.kafka.clients>
 
     <mainClass>io.helidon.examples.quickstart.se.Main</mainClass>
+    <alpine>--libc=musl</alpine>
 
     <helidon.version>4.1.6</helidon.version>
 
@@ -195,6 +201,24 @@
       <version>1.8.0</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.junit.platform</groupId>
+      <artifactId>junit-platform-launcher</artifactId>
+      <version>${version.lib.junit-platform}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.platform</groupId>
+      <artifactId>junit-platform-suite-engine</artifactId>
+      <version>${version.lib.junit-platform}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.graalvm.buildtools</groupId>
+      <artifactId>junit-platform-native</artifactId>
+      <version>${version.lib.junit.platform.native}</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 
   <build>
@@ -228,6 +252,34 @@
     </testResources>
     <pluginManagement>
       <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-shade-plugin</artifactId>
+          <version>${version.plugin.shade}</version>
+          <dependencies>
+            <dependency>
+              <groupId>org.ow2.asm</groupId>
+              <artifactId>asm</artifactId>
+              <version>${version.lib.asm}</version>
+            </dependency>
+            <dependency>
+              <groupId>org.ow2.asm</groupId>
+              <artifactId>asm-commons</artifactId>
+              <version>${version.lib.asm}</version>
+            </dependency>
+          </dependencies>
+          <executions>
+            <execution>
+              <phase>package</phase>
+              <goals>
+                <goal>shade</goal>
+              </goals>
+              <configuration>
+                <shadedArtifactAttached>true</shadedArtifactAttached>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
         <plugin>
           <groupId>org.xolstice.maven.plugins</groupId>
           <artifactId>protobuf-maven-plugin</artifactId>
@@ -331,6 +383,11 @@
           <artifactId>native-maven-plugin</artifactId>
           <version>${version.plugin.nativeimage}</version>
         </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-failsafe-plugin</artifactId>
+          <version>${version.plugin.failsafe}</version>
+        </plugin>
       </plugins>
     </pluginManagement>
     <plugins>
@@ -349,6 +406,93 @@
       <plugin>
         <groupId>org.xolstice.maven.plugins</groupId>
         <artifactId>protobuf-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>io.fabric8</groupId>
+        <artifactId>docker-maven-plugin</artifactId>
+        <version>0.44.0</version>
+        <configuration>
+          <images>
+            <image>
+              <alias>${kafka.name}</alias>
+              <name>${kafka.image}</name>
+              <run>
+                <hostname>${kafka.name}</hostname>
+                <env>
+                  <KAFKA_CFG_NODE_ID>0</KAFKA_CFG_NODE_ID>
+                  <KAFKA_CFG_PROCESS_ROLES>controller,broker</KAFKA_CFG_PROCESS_ROLES>
+                  <KAFKA_CFG_LISTENERS>PLAINTEXT://:9092,CONTROLLER://:9093,EXTERNAL://0.0.0.0:9094</KAFKA_CFG_LISTENERS>
+                  <KAFKA_CFG_ADVERTISED_LISTENERS>PLAINTEXT://${kafka.name}:9092,EXTERNAL://localhost:9094</KAFKA_CFG_ADVERTISED_LISTENERS>
+                  <KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP>CONTROLLER:PLAINTEXT,EXTERNAL:PLAINTEXT,PLAINTEXT:PLAINTEXT</KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP>
+                  <KAFKA_CFG_CONTROLLER_QUORUM_VOTERS>0@${kafka.name}:9093</KAFKA_CFG_CONTROLLER_QUORUM_VOTERS>
+                  <KAFKA_CFG_CONTROLLER_LISTENER_NAMES>CONTROLLER</KAFKA_CFG_CONTROLLER_LISTENER_NAMES>
+                </env>
+                <ports>
+                  <port>9094:9094</port>
+                </ports>
+              </run>
+            </image>
+            <image>
+              <alias>${schema-registry.name}</alias>
+              <name>${schema-registry.image}</name>
+              <run>
+                <hostname>${schema-registry.name}</hostname>
+                <env>
+                  <SCHEMA_REGISTRY_KAFKA_BROKERS>PLAINTEXT://${kafka.name}:9092</SCHEMA_REGISTRY_KAFKA_BROKERS>
+                  <SCHEMA_REGISTRY_LISTENERS>http://0.0.0.0:8081</SCHEMA_REGISTRY_LISTENERS>
+                  <SCHEMA_REGISTRY_DEBUG>true</SCHEMA_REGISTRY_DEBUG>
+                </env>
+                <ports>
+                  <port>8081:8081</port>
+                </ports>
+                <links>
+                  <link>${kafka.name}</link>
+                </links>
+                <wait>
+                  <http>
+                    <url>http://localhost:8081/v1/metadata/id</url>
+                  </http>
+                  <time>100000</time>
+                </wait>
+              </run>
+            </image>
+          </images>
+        </configuration>
+        <executions>
+          <execution>
+            <id>start</id>
+            <phase>pre-integration-test</phase>
+            <goals>
+              <!-- "build" should be used to create the images with the
+                   artifact -->
+              <goal>build</goal>
+              <goal>start</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>stop</id>
+            <phase>post-integration-test</phase>
+            <goals>
+              <goal>stop</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-failsafe-plugin</artifactId>
+        <configuration>
+          <excludes>
+            <exclude>**/KafkaProtoTestIT.java</exclude>
+          </excludes>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>integration-test</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
@@ -443,9 +587,56 @@
       </build>
     </profile>
     <profile>
+      <id>default</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+        <property>
+          <name>env</name>
+          <value>dev</value>
+        </property>
+      </activation>
+      <properties>
+        <musl>--verbose</musl>
+      </properties>
+    </profile>
+    <profile>
+      <id>alpine</id>
+      <activation>
+        <property>
+          <name>env</name>
+          <value>alpine</value>
+        </property>
+      </activation>
+      <properties>
+        <musl>${alpine}</musl>
+      </properties>
+      <build>
+        <resources>
+          <!--
+                Filter resources in "process-resources" phase
+                @link http://maven.apache.org/plugins/maven-resources-plugin/examples/filter.html
+                 -->
+          <resource>
+            <directory>${basedir}/src/main/alpine</directory>
+            <filtering>true</filtering>
+          </resource>
+        </resources>
+      </build>
+    </profile>
+    <profile>
       <id>native</id>
+      <activation>
+        <property>
+          <name>env</name>
+          <value>native</value>
+        </property>
+      </activation>
       <build>
         <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-shade-plugin</artifactId>
+          </plugin>
           <plugin>
             <groupId>org.graalvm.buildtools</groupId>
             <artifactId>native-maven-plugin</artifactId>
@@ -464,7 +655,7 @@
                   <fallback>false</fallback>
                   <classpath>${project.build.directory}/libs,${project.build.directory}/${project.build.finalName}.jar</classpath>
                   <buildArgs>
-                    <arg>--libc=musl</arg>
+                    <arg>${musl}</arg>
                   </buildArgs>
                 </configuration>
               </execution>

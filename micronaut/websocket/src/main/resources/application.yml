@@ -1,0 +1,33 @@
+micronaut:
+  application:
+    name: demo
+  router:
+    static-resources:
+      default:
+        enabled: true
+        mapping: /**
+        paths: classpath:public
+kafka:
+  bootstrap:
+    servers: ${KAFKA_BOOTSTRAP_SERVERS:`localhost:9094`}
+  message:
+    topic: messaging-topic-snappy-compressed
+  producers:
+    default:
+      key:
+        serializer: org.apache.kafka.common.serialization.StringSerializer
+      value:
+        serializer: io.confluent.kafka.serializers.protobuf.KafkaProtobufSerializer
+      schema:
+        registry:
+          url: ${SCHEMA_REGISTRY_URL:`http://localhost:8081`}
+
+  consumers:
+    default:
+      key:
+        deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value:
+        deserializer: io.confluent.kafka.serializers.protobuf.KafkaProtobufDeserializer
+      schema:
+        registry:
+          url: ${SCHEMA_REGISTRY_URL:`http://localhost:8081`}

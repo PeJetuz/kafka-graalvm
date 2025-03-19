@@ -46,7 +46,8 @@ final class KafkaClientProtoTestIT {
     /**
      * Kafka bootstrap server.
      */
-    private static final String BS_SRV = "localhost:9094";
+    private static final String BS_SRV =
+        envValueOrDef("APP_KAFKA_BOOTSTRAP_SERVERS", "localhost:9094");;
 
     /**
      * Timeout operation.
@@ -61,12 +62,21 @@ final class KafkaClientProtoTestIT {
     /**
      * Service registry url.
      */
-    private static final String SCHEMA_REGISTRY_URL = "http://127.0.0.1:8081";
+    private static final String SCHEMA_REGISTRY_URL =
+        envValueOrDef("APP_KAFKA_SCHEMA_REGISTRY_URL", "http://127.0.0.1:8081");
 
     /**
      * Topic name.
      */
     private final String topic;
+
+    private static String envValueOrDef(final String env, final String def) {
+        final String value = System.getenv(env);
+        if (value == null || value.isBlank()) {
+            return def;
+        }
+        return value;
+    }
 
     //kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic messaging-test-topic-snappy-compressed --from-beginning
     KafkaClientProtoTestIT() {

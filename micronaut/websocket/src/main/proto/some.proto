@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+option java_package = "my.test.protobuf";
+option java_outer_classname = "Envelop";
+
+message Message {
+    string topic = 1;
+    string user = 2;
+    repeated string messsage = 3;
+    int32 some_number = 4;
+}

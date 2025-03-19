@@ -1,7 +1,12 @@
+ARG KAFKA_BOOTSTRAP_SERVERS_DEFAULT=kafka-server2:9092
+ARG SCHEMA_REGISTRY_URL_DEFAULT=http://schema-registry:8081
 
-# 1st stage, build the app https://github.com/graalvm/container/pkgs/container/native-image-community
-#https://github.com/graalvm/container/pkgs/container/graalvm-community  https://github.com/graalvm/container/pkgs/container/graalvm-community/versions?filters%5Bversion_type%5D=tagged
 FROM ghcr.io/graalvm/native-image-community:23.0.2-muslib-ol9 AS build
+
+ARG KAFKA_BOOTSTRAP_SERVERS_DEFAULT
+ARG SCHEMA_REGISTRY_URL_DEFAULT
+ENV KAFKA_BOOTSTRAP_SERVERS=$KAFKA_BOOTSTRAP_SERVERS_DEFAULT
+ENV SCHEMA_REGISTRY_URL=$SCHEMA_REGISTRY_URL_DEFAULT
 
 WORKDIR /usr/share
 
@@ -13,7 +18,7 @@ RUN set -x && \
     mv apache-maven-* maven && \
     ln -s /usr/share/maven/bin/mvn /bin/
 
-WORKDIR /helidon
+WORKDIR /micronaut
 
 # Create a first layer to cache the "Maven World" in the local repository.
 # Incremental docker builds will always resume after that, unless you update
@@ -24,12 +29,18 @@ RUN mvn package
 # Do the Maven build!
 # Incremental docker builds will resume here when you change sources
 ADD src src
-RUN mvn package -Pnative -Denv=alpine && echo qwejhakjshd
+RUN mvn package -Dpackaging=native-image -Dalpine -Dmaven.test.skip=true
 
 RUN echo "done!"
+#CMD ["/bin/ash"]
 
 # 2nd stage, build the runtime image
 FROM alpine:3.21.3
+
+ARG KAFKA_BOOTSTRAP_SERVERS_DEFAULT
+ARG SCHEMA_REGISTRY_URL_DEFAULT
+ENV KAFKA_BOOTSTRAP_SERVERS=$KAFKA_BOOTSTRAP_SERVERS_DEFAULT
+ENV SCHEMA_REGISTRY_URL=$SCHEMA_REGISTRY_URL_DEFAULT
 
 #RUN apk --no-cache add mc
 #RUN apk --no-cache add ca-certificates
@@ -43,12 +54,12 @@ RUN ln libstdc++.so.6.0.33 libstdc++.so.6 && \
     ln libsnappyjava.so.1.1.8 libsnappyjava.so && \
     ln libsnappy.so.1.1.10 libsnappy.so.1 && \
     ln libzstd-jni-1.5.5-6.so libzstd-jni.so
-	
-WORKDIR /helidon
+
+WORKDIR /micronaut
 
 # Copy the binary built in the 1st stage
-COPY --from=build /helidon/target/helidon-kafka-graal .
+COPY --from=build /micronaut/target/demo .
 
 #WORKDIR /
-#ENTRYPOINT ["/bin/ash"]
-ENTRYPOINT ["/helidon/helidon-kafka-graal", "-DZstdNativePath=/usr/lib/libzstd-jni.so"]
+#CMD ["/bin/sh"]
+ENTRYPOINT ["/micronaut/demo", "-DZstdNativePath=/usr/lib/libzstd-jni.so"]
