@@ -19,9 +19,11 @@ jobs:
     runs-on: ubuntu-latest
     name: Build and test static lib for alpine
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
       - name: Build static lib
         id: static-lib-alpine
-        uses: PeJetuz/kafka-graalvm/static-lib@v1
+        uses: PeJetuz/kafka-graalvm/static-lib@v2
 
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
