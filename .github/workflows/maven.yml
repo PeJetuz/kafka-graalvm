@@ -17,7 +17,7 @@ on:
 jobs:
   micronaut:
     runs-on: ubuntu-latest
-    name: Build and test static lib for alpine
+    name: Build and test micronaut+kafka https://github.com/graalvm/setup-graalvm
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -26,6 +26,8 @@ jobs:
         with:
           java-version: '23'
           distribution: 'graalvm-community'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          native-image-job-reports: 'true'
           maven-version: '3.9.6'
           cache: maven
       - name: Micronaut+kafka+graalvm project build
