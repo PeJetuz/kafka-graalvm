@@ -17,18 +17,10 @@ on:
 jobs:
   static-lib:
     runs-on: ubuntu-latest
-    name: Builds for alpine
+    name: Static lib build for alpine
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Build static lib for alpine
         id: static-lib-alpine
         uses: PeJetuz/kafka-graalvm/static-lib@v2
-      - name: Build micronaut static for alpine
-        id: micronaut-kafka-graalvm-alpine
-        uses: PeJetuz/kafka-graalvm/micronaut/websocket@v3
-
-
-    # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
-    #- name: Update dependency graph
-    #  uses: advanced-security/maven-dependency-submission-action@571e99aab1055c2e71a1e2309b9691de18d6b7d6
