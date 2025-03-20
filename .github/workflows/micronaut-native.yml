@@ -40,7 +40,7 @@ jobs:
       - name: Checkout
         id: checkout
         uses: actions/checkout@v4
-      - name Generate tag
+      - name: Generate tag
         id: gentag
         run: echo IMAGE_TAG=$(date +%s) >> $GITHUB_ENV
 #      - name: Set env
