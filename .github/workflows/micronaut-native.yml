@@ -15,18 +15,10 @@ on:
     branches: [ "main" ]
 
 jobs:
-  tag:
-    runs-on: ubuntu-latest
-    name: Prepare tag
-    timeout-minutes: 15
-    steps:
-      - id: gen
-        run: echo IMAGE_TAG=$(date +%s) >> $GITHUB_ENV
   build:
     runs-on: ubuntu-latest
     name: Micronaut-Kafka-GraalVM builds for alpine
     timeout-minutes: 15
-    needs: [ tag ]
     services:
       kafka:
         image: bitnami/kafka:3.9.0
@@ -50,9 +42,6 @@ jobs:
       - name: Checkout
         id: checkout
         uses: actions/checkout@v4
-      - name: Generate tag
-        id: gentag
-        run: echo IMAGE_TAG=$(date +%s) >> $GITHUB_ENV
 #      - name: Set env
 #        id: env
 #        run: |
@@ -62,9 +51,8 @@ jobs:
       - name: Build image
         id: micronaut-native
         run: |
-          TAG2="$(date +%s)"
-          echo tag2 = "$TAG2"
-          TAG="${{ needs.tag.steps.gen.env.IMAGE_TAG }}"
+          TAG="$(date +%s)"
+          echo tag = "$TAG"
           docker build --file micronaut/websocket/Dockerfile.alpine --tag micronaut-native:$TAG --build-arg KAFKA_BOOTSTRAP_SERVERS=kafka:9092 --build-arg SCHEMA_REGISTRY_URL=http://schema-registry:8081 micronaut/websocket
           docker run --rm --name micronaut-native -d micronaut-native:$TAG
   verify:
