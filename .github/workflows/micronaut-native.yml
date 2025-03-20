@@ -13,6 +13,7 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+env:
 
 jobs:
   build:
@@ -21,6 +22,14 @@ jobs:
     services:
       kafka:
         image: bitnami/kafka:3.9.0
+        env:
+          KAFKA_CFG_NODE_ID: 0
+          KAFKA_CFG_PROCESS_ROLES: "controller,broker"
+          KAFKA_CFG_LISTENERS: "PLAINTEXT://:9092,CONTROLLER://:9093,EXTERNAL://0.0.0.0:9094"
+          KAFKA_CFG_ADVERTISED_LISTENERS: "PLAINTEXT://kafka:9092,EXTERNAL://localhost:9094"
+          KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP: "CONTROLLER:PLAINTEXT,EXTERNAL:PLAINTEXT,PLAINTEXT:PLAINTEXT"
+          KAFKA_CFG_CONTROLLER_QUORUM_VOTERS" "0@kafka:9093"
+          KAFKA_CFG_CONTROLLER_LISTENER_NAMES: CONTROLLER
       schema-registry:
         image: bitnami/schema-registry:7.8.0
         env:
@@ -28,15 +37,51 @@ jobs:
           SCHEMA_REGISTRY_LISTENERS: "http://0.0.0.0:8081"
           SCHEMA_REGISTRY_DEBUG: "true"
     steps:
-      - name: Set env
-        id: env
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@v4
+      - name: Set up GraalVM 23
+        id: jvm
+        uses: graalvm/setup-graalvm@v1
+        with:
+          java-version: '23'
+          distribution: 'graalvm-community'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          native-image-job-reports: 'true'
+          maven-version: '3.9.6'
+          cache: maven
+#      - name: Set env
+#        id: env
+#        run: |
+#          echo "TAG=$(date +%s)" >> $GITHUB_ENV
+#          echo "KAFKA_BOOTSTRAP_SERVERS=kafka:9094" >> $GITHUB_ENV
+#          echo "SCHEMA_REGISTRY_URL=http://schema-registry:8081" >> $GITHUB_ENV
+      - name: Build image
+        id: micronaut-native
         run: |
-          echo "KAFKA_BOOTSTRAP_SERVERS:kafka:9094" >> $GITHUB_ENV
-          echo "SCHEMA_REGISTRY_URL:http://schema-registry:8081" >> $GITHUB_ENV
-      - name: Build micronaut static for alpine
-        id: micronaut-kafka-graalvm-alpine
-        uses: PeJetuz/kafka-graalvm/micronaut/websocket@v3
-        env:
-          KAFKA_BOOTSTRAP_SERVERS: "kafka:9092"
-          SCHEMA_REGISTRY_URL: "http://schema-registry:8081"
+          echo "TAG=$(date +%s)" >> $GITHUB_ENV
+          docker build --file micronaut/websocket/Dockerfile.alpine --tag micronaut-native:$TAG --build-arg KAFKA_BOOTSTRAP_SERVERS=kafka:9092 --build-arg SCHEMA_REGISTRY_URL=http://schema-registry:8081 micronaut/websocket
+          docker run --rm --name micronaut-native -d micronaut-native:$TAG
+          
+      - name: Run tests
+        id: tests
+        needs: [ micronaut-native, checkout, jvm ]
+        run: |
+          mvn clean verify package -f micronaut/websocket/src/it/pom.xml && java -jar micronaut/websocket/src/it/target/wsclient-0.1.jar
+      - name: End
+        id: end
+        needs: [ micronaut-native, test ]
+        if: job.steps.tests.status == failure()
+        run: |
+          docker stop micronaut-native
+          exit 1
+        if: job.steps.tests.status != failure()
+        run: |
+          docker stop micronaut-native
+#      - name: Build micronaut static for alpine
+#        id: micronaut-kafka-graalvm-alpine
+#        uses: PeJetuz/kafka-graalvm/micronaut/websocket@v3
+#        env:
+#          KAFKA_BOOTSTRAP_SERVERS: "kafka:9092"
+#          SCHEMA_REGISTRY_URL: "http://schema-registry:8081"
 
