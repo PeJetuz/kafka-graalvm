@@ -13,7 +13,6 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-env:
 
 jobs:
   build:
@@ -66,8 +65,7 @@ jobs:
       - name: Run tests
         id: tests
         needs: [ micronaut-native, checkout, jvm ]
-        run: |
-          mvn clean verify package -f micronaut/websocket/src/it/pom.xml && java -jar micronaut/websocket/src/it/target/wsclient-0.1.jar
+        run: mvn clean verify package -f micronaut/websocket/src/it/pom.xml && java -jar micronaut/websocket/src/it/target/wsclient-0.1.jar
       - name: End
         id: end
         needs: [ micronaut-native, test ]
@@ -76,8 +74,7 @@ jobs:
           docker stop micronaut-native
           exit 1
         if: job.steps.tests.status != failure()
-        run: |
-          docker stop micronaut-native
+        run: docker stop micronaut-native
 #      - name: Build micronaut static for alpine
 #        id: micronaut-kafka-graalvm-alpine
 #        uses: PeJetuz/kafka-graalvm/micronaut/websocket@v3
