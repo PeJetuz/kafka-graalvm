@@ -15,10 +15,19 @@ on:
     branches: [ "main" ]
 
 jobs:
+  tag:
+    runs-on: ubuntu-latest
+    name: Prepare tag
+    timeout-minutes: 15
+    steps:
+      - run: echo IMAGE_TAG=$(date +%s) >> $GITHUB_ENV
+      - id: output
+        run: echo $(date +%s) >> $GITHUB_OUTPUT
   build:
     runs-on: ubuntu-latest
     name: Micronaut-Kafka-GraalVM builds for alpine
     timeout-minutes: 15
+    needs: [ tag ]
     services:
       kafka:
         image: bitnami/kafka:3.9.0
@@ -30,11 +39,13 @@ jobs:
           KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP: "CONTROLLER:PLAINTEXT,EXTERNAL:PLAINTEXT,PLAINTEXT:PLAINTEXT"
           KAFKA_CFG_CONTROLLER_QUORUM_VOTERS: "0@kafka:9093"
           KAFKA_CFG_CONTROLLER_LISTENER_NAMES: CONTROLLER
+          KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       schema-registry:
         image: bitnami/schema-registry:7.8.0
         env:
           SCHEMA_REGISTRY_KAFKA_BROKERS: "PLAINTEXT://kafka:9092"
           SCHEMA_REGISTRY_LISTENERS: "http://0.0.0.0:8081"
+          KAFKASTORE_TOPIC_REPLICATION_FACTOR: 1
           SCHEMA_REGISTRY_DEBUG: "true"
     steps:
       - name: Checkout
@@ -51,11 +62,10 @@ jobs:
 #          echo "SCHEMA_REGISTRY_URL=http://schema-registry:8081" >> $GITHUB_ENV
       - name: Build image
         id: micronaut-native
-        env:
-          Tag: ${{ env.IMAGE_TAG }}
         run: |
-          docker build --file micronaut/websocket/Dockerfile.alpine --tag micronaut-native:$Tag --build-arg KAFKA_BOOTSTRAP_SERVERS=kafka:9092 --build-arg SCHEMA_REGISTRY_URL=http://schema-registry:8081 micronaut/websocket
-          docker run --rm --name micronaut-native -d micronaut-native:$Tag
+          TAG="${{ needs.tag.steps.output }}"
+          docker build --file micronaut/websocket/Dockerfile.alpine --tag micronaut-native:$TAG --build-arg KAFKA_BOOTSTRAP_SERVERS=kafka:9092 --build-arg SCHEMA_REGISTRY_URL=http://schema-registry:8081 micronaut/websocket
+          docker run --rm --name micronaut-native -d micronaut-native:$TAG
   verify:
     runs-on: ubuntu-latest
     name: Verify build
