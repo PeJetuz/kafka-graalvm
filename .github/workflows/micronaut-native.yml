@@ -51,7 +51,7 @@ jobs:
 #          echo "SCHEMA_REGISTRY_URL=http://schema-registry:8081" >> $GITHUB_ENV
       - name: Build image
         id: micronaut-native
-        with:
+        env:
           Tag: ${{ env.IMAGE_TAG }}
         run: |
           docker build --file micronaut/websocket/Dockerfile.alpine --tag micronaut-native:$Tag --build-arg KAFKA_BOOTSTRAP_SERVERS=kafka:9092 --build-arg SCHEMA_REGISTRY_URL=http://schema-registry:8081 micronaut/websocket
