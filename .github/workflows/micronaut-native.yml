@@ -24,14 +24,19 @@ jobs:
       schema-registry:
         image: bitnami/schema-registry:7.8.0
         env:
-          - SCHEMA_REGISTRY_KAFKA_BROKERS=PLAINTEXT://kafka:9092
-          - SCHEMA_REGISTRY_LISTENERS=http://0.0.0.0:8081
-          - SCHEMA_REGISTRY_DEBUG=true
+          SCHEMA_REGISTRY_KAFKA_BROKERS:PLAINTEXT://kafka:9092
+          SCHEMA_REGISTRY_LISTENERS:http://0.0.0.0:8081
+          SCHEMA_REGISTRY_DEBUG:true
     steps:
+      - name: Set env
+        id: env
+        run: |
+          echo "KAFKA_BOOTSTRAP_SERVERS:kafka:9094" >> $GITHUB_ENV
+          echo "SCHEMA_REGISTRY_URL:http://schema-registry:8081" >> $GITHUB_ENV
       - name: Build micronaut static for alpine
         id: micronaut-kafka-graalvm-alpine
         uses: PeJetuz/kafka-graalvm/micronaut/websocket@v3
         env:
-          - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
-          - SCHEMA_REGISTRY_URL=http://schema-registry:8081
+          KAFKA_BOOTSTRAP_SERVERS:kafka:9092
+          SCHEMA_REGISTRY_URL:http://schema-registry:8081
 
