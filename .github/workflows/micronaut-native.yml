@@ -18,7 +18,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     name: Micronaut-Kafka-GraalVM builds for alpine
-    timeout-minutes: 12
+    timeout-minutes: 15
     services:
       kafka:
         image: bitnami/kafka:3.9.0
@@ -53,6 +53,9 @@ jobs:
           docker build --file micronaut/websocket/Dockerfile.alpine --tag micronaut-native:$TAG --build-arg KAFKA_BOOTSTRAP_SERVERS=kafka:9092 --build-arg SCHEMA_REGISTRY_URL=http://schema-registry:8081 micronaut/websocket
           docker run --rm --name micronaut-native -d micronaut-native:$TAG
   verify:
+    runs-on: ubuntu-latest
+    name: Verify build
+    timeout-minutes: 7
     needs: [ build ]
     steps:
       - name: Checkout
@@ -72,6 +75,9 @@ jobs:
         id: tests
         run: mvn clean verify package -f micronaut/websocket/src/it/pom.xml && java -jar micronaut/websocket/src/it/target/wsclient-0.1.jar
   cleanup:
+    runs-on: ubuntu-latest
+    name: Cleanup
+    timeout-minutes: 3
     needs: [ build, verify ]
     steps:
       - name: Stop micronaut
