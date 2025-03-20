@@ -15,11 +15,23 @@ on:
     branches: [ "main" ]
 
 jobs:
-  micronaut-static:
+  build:
     runs-on: ubuntu-latest
     name: Micronaut-Kafka-GraalVM builds for alpine
+    services:
+      kafka:
+        image: bitnami/kafka:3.9.0
+      schema-registry:
+        image: bitnami/schema-registry:7.8.0
+        env:
+          - SCHEMA_REGISTRY_KAFKA_BROKERS=PLAINTEXT://kafka:9092
+          - SCHEMA_REGISTRY_LISTENERS=http://0.0.0.0:8081
+          - SCHEMA_REGISTRY_DEBUG=true
     steps:
       - name: Build micronaut static for alpine
         id: micronaut-kafka-graalvm-alpine
         uses: PeJetuz/kafka-graalvm/micronaut/websocket@v3
+        env:
+          - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
+          - SCHEMA_REGISTRY_URL=http://schema-registry:8081
 
