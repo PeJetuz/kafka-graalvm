@@ -82,11 +82,7 @@ jobs:
     steps:
       - name: Stop micronaut
         id: stop-micronaut
-        if: job.verify.steps.tests.status == failure()
-        run: |
-          docker stop micronaut-native
-          exit 1
-        if: job.verify.steps.tests.status != failure()
+        if: job.build.steps.micronaut-native.status != failure()
         run: docker stop micronaut-native
 #      - name: Build micronaut static for alpine
 #        id: micronaut-kafka-graalvm-alpine
