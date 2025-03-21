@@ -37,10 +37,12 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: "{{defaultContext}}:micronaut/websocket"
+          file: Dockerfile.alpine
           load: true
           push: false
           tags: ${{ env.TEST_TAG }}
   test-image:
+    needs: build
     runs-on: ubuntu-latest
     name: Test image
     timeout-minutes: 15
@@ -76,6 +78,9 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           native-image-job-reports: 'true'
           cache: maven
+      -
+        name: Maven version
+        run: mvn -version
 #      -
 #        name: Validate image
 #        run: |
