@@ -81,6 +81,12 @@ jobs:
       -
         name: Maven version
         run: mvn -version
+      -
+        name: Validate
+        run: |
+          docker run --rm -p 8080:8080 -d ${{ env.TEST_TAG }}
+          echo image running
+          mvn clean verify package -f micronaut/websocket/src/it/pom.xml
 #      -
 #        name: Validate image
 #        run: |
