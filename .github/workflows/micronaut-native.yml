@@ -103,6 +103,7 @@ jobs:
           KAFKA_BOOTSTRAP_SERVERS: "kafka:9092"
           SCHEMA_REGISTRY_URL: "http://schema-registry:8081"
         run: |
+          echo run micronaut-native
           docker run --rm -d --name micronaut-native --network ${{ job.container.network }} -e KAFKA_BOOTSTRAP_SERVERS=kafka:9092 -e SCHEMA_REGISTRY_URL=http://schema-registry:8081 -p 8080:8080 ${{ env.TEST_TAG }}
           echo build test
           mvn clean verify package -f micronaut/websocket/src/it/pom.xml
@@ -111,3 +112,4 @@ jobs:
           java -jar micronaut/websocket/src/it/target/wsclient-0.1.jar
           echo test completed
           docker stop micronaut-native
+          echo micronaut-native stopped
