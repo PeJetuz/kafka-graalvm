@@ -42,6 +42,9 @@ jobs:
           KAFKASTORE_TOPIC_REPLICATION_FACTOR: 1
           SCHEMA_REGISTRY_DEBUG: "true"
     steps:
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@v4
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -68,9 +71,6 @@ jobs:
           cache: maven
       - name: Maven version
         run: mvn -version
-      - name: Checkout
-        id: checkout
-        uses: actions/checkout@v4
       - name: Test image
         id: test
         run: |
