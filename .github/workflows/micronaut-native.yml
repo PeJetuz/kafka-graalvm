@@ -111,4 +111,3 @@ jobs:
           java -jar micronaut/websocket/src/it/target/wsclient-0.1.jar
           echo test completed
           docker stop micronaut-native
-          docker rm micronaut-native
