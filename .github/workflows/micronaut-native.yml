@@ -77,9 +77,9 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           native-image-job-reports: 'true'
           cache: maven
-      -
-        name: Maven version
-        run: mvn -version
+#      -
+#        name: Maven version
+#        run: mvn -version
       - name: Test image
         id: test
         run: |
