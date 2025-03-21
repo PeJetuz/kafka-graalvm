@@ -105,9 +105,11 @@ jobs:
       -
         name: Validate
         run: |
-          docker run --rm --name micronaut-native -p 8080:8080 -d ${{ env.TEST_TAG }}
+          docker run --rm --name micronaut-native --network ${{ job.container.network }} -p 8080:8080 -d ${{ env.TEST_TAG }}
           echo build test
           mvn clean verify package -f micronaut/websocket/src/it/pom.xml
+          echo `nc -vz localhost 8080`
+          echo `nc -vz micronaut-native 8080`
           echo run test
           java -jar micronaut/websocket/src/it/target/wsclient-0.1.jar
           echo test completed
