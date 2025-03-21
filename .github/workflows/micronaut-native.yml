@@ -22,6 +22,29 @@ jobs:
     runs-on: ubuntu-latest
     name: Micronaut-Kafka-GraalVM builds for alpine
     timeout-minutes: 15
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v4
+      -
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      -
+        name: Build image
+        uses: docker/build-push-action@v6
+        with:
+          context: "{{defaultContext}}:micronaut/websocket"
+          load: true
+          push: false
+          tags: ${{ env.TEST_TAG }}
+
+  test-image:
+    runs-on: ubuntu-latest
+    name: Test image
+    timeout-minutes: 15
     services:
       kafka:
         image: bitnami/kafka:3.9.0
@@ -42,26 +65,11 @@ jobs:
           KAFKASTORE_TOPIC_REPLICATION_FACTOR: 1
           SCHEMA_REGISTRY_DEBUG: "true"
     steps:
-      - name: Checkout
-        id: checkout
+      -
+        name: Checkout
         uses: actions/checkout@v4
       -
-        name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
-      -
-        name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-      -
-        name: Build image
-        uses: docker/build-push-action@v6
-        with:
-          context: "{{defaultContext}}:micronaut/websocket"
-          load: true
-          push: false
-          tags: ${{ env.TEST_TAG }}
-
-      - name: Set up GraalVM 23
-        id: jvm
+        name: Set up GraalVM 23
         uses: graalvm/setup-graalvm@v1
         with:
           java-version: '23'
@@ -69,9 +77,11 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           native-image-job-reports: 'true'
           cache: maven
-      - name: Maven version
+      -
+        name: Maven version
         run: mvn -version
-      - name: Test image
+      -
+        name: Test image
         id: test
         run: |
           TAG="$(date +%s)"
@@ -79,7 +89,7 @@ jobs:
 #          docker build --file micronaut/websocket/Dockerfile.alpine --tag micronaut-native:$TAG --build-arg KAFKA_BOOTSTRAP_SERVERS=kafka:9092 --build-arg SCHEMA_REGISTRY_URL=http://schema-registry:8081 micronaut/websocket
 #          echo image build complete
 #          docker run --rm --name micronaut-native -p 8080:8080 -d micronaut-native:$TAG
-          docker run --rm ${{ env.TEST_TAG }}
+          docker run --rm -p 8080:8080 -d ${{ env.TEST_TAG }}
           echo image running
           echo echo `nc -vz localhost 8080`
           mvn clean verify package -f micronaut/websocket/src/it/pom.xml
