@@ -42,12 +42,6 @@ jobs:
       - name: Checkout
         id: checkout
         uses: actions/checkout@v4
-#      - name: Set env
-#        id: env
-#        run: |
-#          echo "TAG=$(date +%s)" >> $GITHUB_ENV
-#          echo "KAFKA_BOOTSTRAP_SERVERS=kafka:9094" >> $GITHUB_ENV
-#          echo "SCHEMA_REGISTRY_URL=http://schema-registry:8081" >> $GITHUB_ENV
       - name: Build image
         id: micronaut-native
         run: |
@@ -55,15 +49,6 @@ jobs:
           echo tag = "$TAG"
           docker build --file micronaut/websocket/Dockerfile.alpine --tag micronaut-native:$TAG --build-arg KAFKA_BOOTSTRAP_SERVERS=kafka:9092 --build-arg SCHEMA_REGISTRY_URL=http://schema-registry:8081 micronaut/websocket
           docker run --rm --name micronaut-native -d micronaut-native:$TAG
-  verify:
-    runs-on: ubuntu-latest
-    name: Verify build
-    timeout-minutes: 7
-    needs: [ build ]
-    steps:
-      - name: Checkout
-        id: checkout
-        uses: actions/checkout@v4
       - name: Set up GraalVM 23
         id: jvm
         uses: graalvm/setup-graalvm@v1
@@ -77,20 +62,7 @@ jobs:
       - name: Run tests
         id: tests
         run: mvn clean verify package -f micronaut/websocket/src/it/pom.xml && java -jar micronaut/websocket/src/it/target/wsclient-0.1.jar
-  cleanup:
-    runs-on: ubuntu-latest
-    name: Cleanup
-    timeout-minutes: 3
-    needs: [ build, verify ]
-    steps:
       - name: Stop micronaut
         id: stop-micronaut
         if: job.build.steps.micronaut-native.status != failure()
         run: docker stop micronaut-native
-#      - name: Build micronaut static for alpine
-#        id: micronaut-kafka-graalvm-alpine
-#        uses: PeJetuz/kafka-graalvm/micronaut/websocket@v3
-#        env:
-#          KAFKA_BOOTSTRAP_SERVERS: "kafka:9092"
-#          SCHEMA_REGISTRY_URL: "http://schema-registry:8081"
-
