@@ -48,7 +48,11 @@ jobs:
           TAG="$(date +%s)"
           echo tag = "$TAG"
           docker build --file micronaut/websocket/Dockerfile.alpine --tag micronaut-native:$TAG --build-arg KAFKA_BOOTSTRAP_SERVERS=kafka:9092 --build-arg SCHEMA_REGISTRY_URL=http://schema-registry:8081 micronaut/websocket
+          echo image build complete
           docker run --rm --name micronaut-native -p 8080:8080 -d micronaut-native:$TAG
+          echo image running
+          echo echo `nc -vz localhost 8080`
+      - run: mvn -version
       - name: Set up GraalVM 23
         id: jvm
         uses: graalvm/setup-graalvm@v1
@@ -57,11 +61,14 @@ jobs:
           distribution: 'graalvm-community'
           github-token: ${{ secrets.GITHUB_TOKEN }}
           native-image-job-reports: 'true'
-          maven-version: '3.9.6'
+#          maven-version: '3.9.6'
           cache: maven
       - name: Run tests
         id: tests
-        run: mvn clean verify package -f micronaut/websocket/src/it/pom.xml && java -jar micronaut/websocket/src/it/target/wsclient-0.1.jar
+        run: |
+          echo echo `nc -vz localhost 8080`
+          echo echo `nc -vz micronaut-native 8080`
+          mvn clean verify package -f micronaut/websocket/src/it/pom.xml && java -jar micronaut/websocket/src/it/target/wsclient-0.1.jar
       - name: Stop micronaut
         id: stop-micronaut
         if: job.build.steps.micronaut-native.status != failure()
