@@ -71,9 +71,6 @@ jobs:
       - name: Checkout
         id: checkout
         uses: actions/checkout@v4
-#      - name: Build image
-#        id: micronaut-native
-#        uses: micronaut/websocket@v5
       - name: Test image
         id: test
         run: |
@@ -89,8 +86,3 @@ jobs:
           echo echo `nc -vz localhost 8080`
           java -jar micronaut/websocket/src/it/target/wsclient-0.1.jar
           echo echo `nc -vz localhost 8080`
-      - name: Stop micronaut
-        id: stop-micronaut
-        if: job.build.steps.micronaut-native.status != failure()
-        run: docker stop ${{ env.TEST_TAG }}
-#        run: docker stop micronaut-native
