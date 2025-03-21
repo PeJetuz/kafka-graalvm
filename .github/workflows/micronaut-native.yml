@@ -80,8 +80,7 @@ jobs:
       -
         name: Maven version
         run: mvn -version
-      -
-        name: Test image
+      - name: Test image
         id: test
         run: |
           TAG="$(date +%s)"
