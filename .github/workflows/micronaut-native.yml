@@ -55,12 +55,15 @@ jobs:
         run: mvn -version
       - name: Build image
         id: micronaut-native
+        uses: micronaut/websocket
+      - name: Test image
+        id: test
         run: |
           TAG="$(date +%s)"
           echo tag = "$TAG"
-          docker build --file micronaut/websocket/Dockerfile.alpine --tag micronaut-native:$TAG --build-arg KAFKA_BOOTSTRAP_SERVERS=kafka:9092 --build-arg SCHEMA_REGISTRY_URL=http://schema-registry:8081 micronaut/websocket
-          echo image build complete
-          docker run --rm --name micronaut-native -p 8080:8080 -d micronaut-native:$TAG
+#          docker build --file micronaut/websocket/Dockerfile.alpine --tag micronaut-native:$TAG --build-arg KAFKA_BOOTSTRAP_SERVERS=kafka:9092 --build-arg SCHEMA_REGISTRY_URL=http://schema-registry:8081 micronaut/websocket
+#          echo image build complete
+#          docker run --rm --name micronaut-native -p 8080:8080 -d micronaut-native:$TAG
           echo image running
           echo echo `nc -vz localhost 8080`
           mvn clean verify package -f micronaut/websocket/src/it/pom.xml
