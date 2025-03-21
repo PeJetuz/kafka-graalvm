@@ -97,11 +97,6 @@ jobs:
       -
         name: Load image
         run: docker load --input /tmp/micronaut.tar
-#      -
-#        name: Run Micronaut
-#        uses: addnab/docker-run-action@v3
-#        with:
-#          image: ${{ env.TEST_TAG }}
       -
         name: Validate
         env:
@@ -112,23 +107,8 @@ jobs:
           echo build test
           mvn clean verify package -f micronaut/websocket/src/it/pom.xml
           echo `nc -vz localhost 8080`
-          echo `nc -vz micronaut-native 8080`
           echo run test
           java -jar micronaut/websocket/src/it/target/wsclient-0.1.jar
           echo test completed
-          echo `nc -vz localhost 8080`
-#      -
-#        name: Validate image
-#        run: |
-#          TAG="$(date +%s)"
-#          echo tag = "$TAG"
-##          docker build --file micronaut/websocket/Dockerfile.alpine --tag micronaut-native:$TAG --build-arg KAFKA_BOOTSTRAP_SERVERS=kafka:9092 --build-arg SCHEMA_REGISTRY_URL=http://schema-registry:8081 micronaut/websocket
-##          echo image build complete
-##          docker run --rm --name micronaut-native -p 8080:8080 -d micronaut-native:$TAG
-#          docker run --rm -p 8080:8080 -d ${{ env.TEST_TAG }}
-#          echo image running
-#          echo echo `nc -vz localhost 8080`
-#          mvn clean verify package -f micronaut/websocket/src/it/pom.xml
-#          echo echo `nc -vz localhost 8080`
-#          java -jar micronaut/websocket/src/it/target/wsclient-0.1.jar
-#          echo echo `nc -vz localhost 8080`
+          docker stop micronaut-native
+          docker rm micronaut-native
